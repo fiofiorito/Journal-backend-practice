@@ -4,10 +4,11 @@
 <p><%= pHome %></p>
 
 <% posts.forEach(function(post) { %> 
-    <% let newComposeTitle = post.composeTitle; %>
-    <% let newPostContent = post.composeContent.substring(0, 101); %>
+    <% const newComposeTitle = post.composeTitle; %>
+    <% const newPostContent = post.composeContent.substring(0, 100); %>
+    <% const postId = post._id; %>
     <h3><%= newComposeTitle %></h3>
-    <p><%= newPostContent %>... <a href="/posts/<%= newComposeTitle %>">Read more</a> </p>
+    <p><%= newPostContent %> ...<a href="/posts/<%= postId %>">Read more</a> </p>
 <% }); %> <%-include("partials/footer") -%>
 
 
