@@ -45,7 +45,7 @@ app.get("/compose", function (req, res) {
   res.render("compose");
 });
 
-app.post("/", function (req, res) {
+app.post("/compose", function (req, res) {
   const post = new Post({
     composeTitle: req.body.composeText,
     composeContent: req.body.newPostContent
@@ -58,15 +58,14 @@ app.post("/", function (req, res) {
 app.get("/posts/:requestedId", function (req, res) {
   const idForUrl = req.params.requestedId;
 
-  const post = new Post({
-    composeTitle: req.body.composeText,
-    composeContent: req.body.newPostContent
-  });
-
   Post.findById({ _id: idForUrl })
     .then(function (foundId) {
       if (foundId) {
-        res.render("post", { composeTitle: post.composeTitle, composeContent: post.composeContent });
+        Post.findOne({ _id: idForUrl })
+          .then(function (post) {
+            res.render("post", { composeTitle: post.composeTitle, composeContent: post.composeContent });
+          })
+
       } else {
         res.redirect('/');
       }
